@@ -1,0 +1,1483 @@
+.
+├── README.md
+├── config
+│   ├── api
+│   │   └── settings.py
+│   ├── api.py
+│   ├── auth
+│   │   └── settings.py
+│   ├── base.py
+│   ├── cache
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── adapters
+│   │   │   └── aws_elasticache.py
+│   │   ├── config.py
+│   │   ├── constants.py
+│   │   ├── decorator.py
+│   │   ├── drivers
+│   │   │   ├── distributed.py
+│   │   │   ├── drivers_base.py
+│   │   │   └── redis.py
+│   │   ├── exceptions.py
+│   │   ├── init.py
+│   │   ├── interface.py
+│   │   ├── local_cache.py
+│   │   ├── memcached.py
+│   │   ├── middleware
+│   │   │   └── cache_middleware.py
+│   │   ├── monitoring
+│   │   │   └── metrics.py
+│   │   ├── pattern
+│   │   │   ├── factory.py
+│   │   │   └── singleton.py
+│   │   ├── redis_cache.py
+│   │   ├── settings.py
+│   │   ├── strategies
+│   │   │   └── tiered.py
+│   │   └── version.py
+│   ├── config_README.md
+│   ├── constants
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── app
+│   │   │   └── features.py
+│   │   ├── app.py
+│   │   ├── database.py
+│   │   ├── defaults.py
+│   │   ├── error.py
+│   │   ├── events
+│   │   │   └── types.py
+│   │   ├── http
+│   │   │   └── headers.py
+│   │   ├── init.py
+│   │   ├── localization
+│   │   │   └── currencies.py
+│   │   ├── logging
+│   │   │   └── levels.py
+│   │   ├── media
+│   │   │   └── types.py
+│   │   ├── messages.py
+│   │   ├── metadata.py
+│   │   ├── paths.py
+│   │   ├── security
+│   │   │   ├── encryption.py
+│   │   │   └── jwt.py
+│   │   ├── status.py
+│   │   └── validation.py
+│   ├── constants.py
+│   ├── database
+│   │   ├── __init__.py
+│   │   ├── connection.py
+│   │   ├── constants.py
+│   │   ├── env.py
+│   │   ├── env.txt
+│   │   ├── exceptions.py
+│   │   ├── init.py
+│   │   ├── migrations.py
+│   │   ├── settings.py
+│   │   ├── utils.py
+│   │   └── validators.py
+│   ├── email
+│   │   └── settings.py
+│   ├── events.py
+│   ├── init.py
+│   ├── logging
+│   │   ├── README.md
+│   │   ├── aggregation
+│   │   │   └── elk_shipper.py
+│   │   ├── config
+│   │   │   └── base_config.py
+│   │   ├── config_production.json
+│   │   ├── formatters
+│   │   │   └── json_formatter.py
+│   │   ├── formatters.py
+│   │   ├── handlers
+│   │   │   └── error_handler.py
+│   │   ├── handlers.py
+│   │   ├── init.py
+│   │   ├── logger.py
+│   │   ├── loggers
+│   │   │   ├── audit_logger.py
+│   │   │   ├── cache_logger.py
+│   │   │   ├── integration_logger.py
+│   │   │   ├── metrics_logger.py
+│   │   │   ├── rate_limit_logger.py
+│   │   │   ├── security_logger.py
+│   │   │   ├── task_logger.py
+│   │   │   └── transaction_logger.py
+│   │   ├── middleware
+│   │   │   └── request_logging.py
+│   │   ├── monitoring
+│   │   │   └── alert_manager.py
+│   │   ├── profiler
+│   │   │   └── performance_profiler.py
+│   │   ├── settings.py
+│   │   └── utils
+│   │       ├── correlation.py
+│   │       └── tracing.py
+│   ├── manager.py
+│   ├── middleware
+│   │   └── settings.py
+│   ├── middleware.py
+│   ├── monitoring
+│   │   ├── README.md
+│   │   ├── alerting
+│   │   │   └── alert_manager.py
+│   │   ├── analytics
+│   │   │   └── realtime_analytics.py
+│   │   ├── apm
+│   │   │   └── tracer.py
+│   │   ├── capacity
+│   │   │   └── capacity_monitor.py
+│   │   ├── config.py
+│   │   ├── cost
+│   │   │   └── cost_monitor.py
+│   │   ├── dashboards
+│   │   │   └── grafana
+│   │   │       └── business.json
+│   │   ├── health
+│   │   │   └── checks.py
+│   │   ├── metrics
+│   │   │   ├── business_metrics.py
+│   │   │   ├── custom_metrics.py
+│   │   │   └── prometheus.py
+│   │   ├── security
+│   │   │   └── security_monitor.py
+│   │   ├── sla
+│   │   │   └── sla_monitor.py
+│   │   └── system_controller.py
+│   ├── providers
+│   │   ├── README.md
+│   │   ├── config_providers_README.md
+│   │   ├── core
+│   │   │   ├── base.py
+│   │   │   ├── exceptions.py
+│   │   │   └── validators.py
+│   │   ├── init.py
+│   │   ├── notification
+│   │   │   ├── firebase.py
+│   │   │   ├── onesignal.py
+│   │   │   └── telegram.py
+│   │   ├── payment
+│   │   │   ├── doku.py
+│   │   │   ├── midtrans.py
+│   │   │   └── xendit.py
+│   │   ├── shipping
+│   │   │   ├── jne.py
+│   │   │   └── sicepat.py
+│   │   ├── telco
+│   │   │   └── pulsa
+│   │   │       └── mobilepulsa.py
+│   │   └── utilities
+│   │       └── pln_prepaid.py
+│   ├── queue
+│   │   ├── __init__.py
+│   │   ├── async_base.py
+│   │   ├── base.py
+│   │   ├── exceptions.py
+│   │   ├── factory.py
+│   │   ├── health.py
+│   │   ├── init.py
+│   │   ├── inmemory.py
+│   │   ├── kafka.py
+│   │   ├── rabbitmq.py
+│   │   ├── redis_queue.py
+│   │   ├── serializer.py
+│   │   └── settings.py
+│   ├── repository
+│   │   ├── base.py
+│   │   └── database.py
+│   ├── security
+│   │   ├── __init__.py
+│   │   ├── base.py
+│   │   ├── certificate.py
+│   │   ├── cors.py
+│   │   ├── firewall.py
+│   │   ├── init.py
+│   │   ├── jwt.py
+│   │   ├── oauth.py
+│   │   ├── oauth2.py
+│   │   ├── password.py
+│   │   ├── permission.py
+│   │   ├── policy.py
+│   │   ├── settings.py
+│   │   └── ssl.py
+│   ├── service
+│   │   └── settings.py
+│   ├── services
+│   │   ├── base.py
+│   │   ├── cache.py
+│   │   └── rate_limiter.py
+│   ├── settings
+│   │   ├── __init__.py
+│   │   ├── app.py
+│   │   ├── auth.py
+│   │   ├── backup.py
+│   │   ├── base.py
+│   │   ├── cache.py
+│   │   ├── celery.py
+│   │   ├── config_settings___init___Version1.py
+│   │   ├── cors.py
+│   │   ├── database.py
+│   │   ├── development.py
+│   │   ├── email.py
+│   │   ├── environment.py
+│   │   ├── integration.py
+│   │   ├── log.py
+│   │   ├── logging.py
+│   │   ├── manager.py
+│   │   ├── middleware.py
+│   │   ├── monitoring.py
+│   │   ├── production.py
+│   │   ├── queue.py
+│   │   ├── security.py
+│   │   ├── staging.py
+│   │   ├── storage.py
+│   │   ├── testing.py
+│   │   └── validation.py
+│   ├── storage
+│   │   └── settings.py
+│   └── utils
+│       ├── README.md
+│       ├── __init__.py
+│       ├── abstracts
+│       │   ├── __init__.py
+│       │   ├── base_parser.py
+│       │   └── base_validator.py
+│       ├── constants
+│       │   ├── defaults.py
+│       │   ├── messages.py
+│       │   └── patterns.py
+│       ├── handlers
+│       │   ├── error_handler.py
+│       │   ├── fallback_handler.py
+│       │   └── override_handler.py
+│       ├── helpers.py
+│       ├── init.py
+│       ├── loaders
+│       │   ├── env_loader.py
+│       │   ├── json_loader.py
+│       │   └── toml_loader.py
+│       ├── parsers
+│       │   ├── env_parser.py
+│       │   ├── path_parser.py
+│       │   └── value_parser.py
+│       ├── resolvers
+│       │   ├── dependency_resolver.py
+│       │   ├── env_resolver.py
+│       │   └── path_resolver.py
+│       ├── security
+│       │   ├── masking.py
+│       │   └── sanitizer.py
+│       └── validators
+│           ├── network_validator.py
+│           ├── security_validator.py
+│           └── type_validator.py
+├── docs
+│   ├── __init__.py
+│   ├── schemas
+│   │   ├── __init__.py
+│   │   ├── auth_schema.py
+│   │   ├── product_schema.py
+│   │   └── user_schema.py
+│   └── swagger.py
+├── env_loader.py
+├── example.py
+├── example_usage.py
+├── examples
+│   └── logging_usage.py
+├── exceptions
+│   ├── __init__.py
+│   ├── auth
+│   │   ├── __init__.py
+│   │   ├── authentication.py
+│   │   ├── authorization.py
+│   │   ├── oauth.py
+│   │   └── token.py
+│   ├── base
+│   │   ├── __init__.py
+│   │   ├── base_exception.py
+│   │   ├── error_codes.py
+│   │   └── http_exception.py
+│   ├── business
+│   │   ├── __init__.py
+│   │   ├── product
+│   │   │   ├── inventory.py
+│   │   │   └── pricing.py
+│   │   ├── transaction
+│   │   │   ├── order.py
+│   │   │   └── payment.py
+│   │   ├── user
+│   │   │   ├── kyc.py
+│   │   │   └── profile.py
+│   │   └── wallet
+│   │       ├── balance.py
+│   │       └── transfer.py
+│   ├── database
+│   │   ├── __init__.py
+│   │   ├── connection.py
+│   │   ├── integrity.py
+│   │   ├── query.py
+│   │   └── transaction.py
+│   ├── handlers
+│   │   ├── __init__.py
+│   │   ├── http_handler.py
+│   │   ├── logging_handler.py
+│   │   └── validation_handler.py
+│   ├── integration
+│   │   ├── __init__.py
+│   │   ├── notification
+│   │   │   ├── email.py
+│   │   │   └── sms.py
+│   │   ├── payment
+│   │   │   ├── midtrans.py
+│   │   │   └── xendit.py
+│   │   └── provider
+│   │       ├── digiflazz.py
+│   │       └── iak.py
+│   ├── security
+│   │   ├── __init__.py
+│   │   ├── csrf.py
+│   │   ├── rate_limit.py
+│   │   └── xss.py
+│   ├── system
+│   │   ├── __init__.py
+│   │   ├── configuration.py
+│   │   ├── resource.py
+│   │   └── service.py
+│   └── validation
+│       ├── __init__.py
+│       ├── business.py
+│       ├── field.py
+│       ├── format.py
+│       └── schema.py
+├── infrastructure
+│   ├── cache
+│   │   └── redis_cache.py
+│   ├── config
+│   │   └── settings.py
+│   └── database
+│       └── connection.py
+├── init.py
+├── middleware
+│   ├── __init__.py
+│   ├── authentication
+│   │   ├── auth
+│   │   │   ├── __init__.py
+│   │   │   ├── api_key_middleware.py
+│   │   │   ├── jwt_middleware.py
+│   │   │   ├── oauth_middleware.py
+│   │   │   └── role_middleware.py
+│   │   ├── auth_middleware.py
+│   │   ├── interfaces
+│   │   │   └── auth_strategy.py
+│   │   ├── middleware
+│   │   │   └── auth_middleware.py
+│   │   ├── providers
+│   │   │   ├── __init__.py
+│   │   │   ├── apple_provider.py
+│   │   │   ├── facebook_provider.py
+│   │   │   └── google_provider.py
+│   │   ├── services
+│   │   │   ├── __init__.py
+│   │   │   ├── refresh_service.py
+│   │   │   ├── session_service.py
+│   │   │   └── token_service.py
+│   │   └── strategies
+│   │       ├── __init__.py
+│   │       ├── api_key_strategy.py
+│   │       ├── jwt_strategy.py
+│   │       └── oauth2_strategy.py
+│   ├── authorization
+│   │   ├── policies
+│   │   │   ├── __init__.py
+│   │   │   ├── access_policy.py
+│   │   │   └── rate_policy.py
+│   │   ├── rbac
+│   │   │   ├── __init__.py
+│   │   │   ├── permission_manager.py
+│   │   │   └── role_manager.py
+│   │   └── services
+│   │       ├── __init__.py
+│   │       ├── access_evaluator.py
+│   │       ├── auth_service.py
+│   │       └── policy_enforcer.py
+│   ├── core
+│   │   ├── abstract
+│   │   │   ├── __init__.py
+│   │   │   ├── base_handler.py
+│   │   │   ├── base_middleware.py
+│   │   │   └── base_validator.py
+│   │   ├── interfaces
+│   │   │   ├── __init__.py
+│   │   │   ├── handler_interface.py
+│   │   │   ├── middleware_interface.py
+│   │   │   └── validator_interface.py
+│   │   └── registry
+│   │       ├── __init__.py
+│   │       ├── dependency_container.py
+│   │       └── middleware_registry.py
+│   ├── error
+│   │   ├── __init__.py
+│   │   ├── error_formatter.py
+│   │   ├── exception_handler.py
+│   │   └── retry_handler.py
+│   ├── integration
+│   │   ├── partner
+│   │   │   ├── __init__.py
+│   │   │   ├── api_gateway.py
+│   │   │   └── webhook_handler.py
+│   │   ├── payment_gateway
+│   │   │   ├── __init__.py
+│   │   │   ├── doku_gateway.py
+│   │   │   ├── midtrans_gateway.py
+│   │   │   └── xendit_gateway.py
+│   │   └── provider
+│   │       ├── __init__.py
+│   │       ├── game_provider.py
+│   │       ├── telco_provider.py
+│   │       └── utility_provider.py
+│   ├── localization
+│   │   ├── __init__.py
+│   │   ├── language_middleware.py
+│   │   └── timezone_middleware.py
+│   ├── logging
+│   │   ├── __init__.py
+│   │   ├── audit_logger.py
+│   │   ├── error_logger.py
+│   │   ├── request_logger.py
+│   │   └── response_logger.py
+│   ├── maintenance
+│   │   ├── __init__.py
+│   │   ├── maintenance_mode.py
+│   │   └── version_check.py
+│   ├── middleware.md
+│   ├── monitoring
+│   │   ├── alerting
+│   │   │   ├── __init__.py
+│   │   │   ├── alert_manager.py
+│   │   │   └── notification_service.py
+│   │   ├── metrics
+│   │   │   ├── __init__.py
+│   │   │   ├── grafana_exporter.py
+│   │   │   └── prometheus_client.py
+│   │   └── tracing
+│   │       ├── __init__.py
+│   │       ├── jaeger_client.py
+│   │       └── opentelemetry_tracer.py
+│   ├── performance
+│   │   ├── __init__.py
+│   │   ├── cache
+│   │   │   ├── __init__.py
+│   │   │   ├── cache_strategy.py
+│   │   │   ├── invalidation_manager.py
+│   │   │   └── redis_manager.py
+│   │   ├── cache_middleware.py
+│   │   ├── compression_middleware.py
+│   │   ├── optimization
+│   │   │   ├── __init__.py
+│   │   │   ├── query_optimizer.py
+│   │   │   └── response_optimizer.py
+│   │   ├── queue
+│   │   │   ├── __init__.py
+│   │   │   ├── dead_letter_handler.py
+│   │   │   ├── queue_strategy.py
+│   │   │   └── rabbitmq_manager.py
+│   │   ├── rate_limiter.py
+│   │   └── timeout_middleware.py
+│   ├── product
+│   │   ├── inventory
+│   │   │   ├── __init__.py
+│   │   │   ├── availability_checker.py
+│   │   │   └── stock_manager.py
+│   │   ├── pricing
+│   │   │   ├── __init__.py
+│   │   │   ├── commission_calculator.py
+│   │   │   └── dynamic_pricing.py
+│   │   └── validators
+│   │       ├── __init__.py
+│   │       ├── category_validator.py
+│   │       └── product_validator.py
+│   ├── resilience
+│   │   ├── circuit_breaker
+│   │   │   ├── __init__.py
+│   │   │   ├── breaker.py
+│   │   │   └── state_manager.py
+│   │   ├── fallback
+│   │   │   ├── __init__.py
+│   │   │   ├── fallback_handler.py
+│   │   │   └── retry_mechanism.py
+│   │   └── rate_limiter
+│   │       ├── __init__.py
+│   │       ├── sliding_window.py
+│   │       └── token_bucket.py
+│   ├── security
+│   │   ├── __init__.py
+│   │   ├── anti_fraud
+│   │   │   ├── __init__.py
+│   │   │   ├── ml_detector.py
+│   │   │   ├── pattern_detector.py
+│   │   │   └── rules_engine.py
+│   │   ├── audit
+│   │   │   ├── __init__.py
+│   │   │   ├── audit_logger.py
+│   │   │   └── compliance_checker.py
+│   │   ├── cors_middleware.py
+│   │   ├── csrf_middleware.py
+│   │   ├── encryption
+│   │   │   ├── __init__.py
+│   │   │   ├── aes_handler.py
+│   │   │   └── rsa_handler.py
+│   │   ├── firewall
+│   │   │   ├── __init__.py
+│   │   │   ├── ip_filter.py
+│   │   │   └── request_filter.py
+│   │   ├── ip_middleware.py
+│   │   ├── ssl_middleware.py
+│   │   └── xss_middleware.py
+│   ├── tracking
+│   │   ├── __init__.py
+│   │   ├── correlation_id.py
+│   │   ├── metrics_collector.py
+│   │   └── user_agent.py
+│   ├── transaction
+│   │   ├── handlers
+│   │   │   ├── __init__.py
+│   │   │   ├── failure_handler.py
+│   │   │   ├── retry_handler.py
+│   │   │   └── success_handler.py
+│   │   ├── processors
+│   │   │   ├── __init__.py
+│   │   │   ├── payment_processor.py
+│   │   │   ├── refund_processor.py
+│   │   │   └── wallet_processor.py
+│   │   └── validators
+│   │       ├── __init__.py
+│   │       ├── balance_validator.py
+│   │       ├── fraud_validator.py
+│   │       └── limit_validator.py
+│   ├── utils
+│   │   ├── constants
+│   │   │   ├── __init__.py
+│   │   │   ├── config_constants.py
+│   │   │   ├── error_codes.py
+│   │   │   └── status_codes.py
+│   │   ├── decorators
+│   │   │   ├── __init__.py
+│   │   │   ├── cache_decorator.py
+│   │   │   ├── monitor_decorator.py
+│   │   │   └── validate_decorator.py
+│   │   └── helpers
+│   │       ├── __init__.py
+│   │       ├── crypto_helper.py
+│   │       ├── datetime_helper.py
+│   │       └── validation_helper.py
+│   └── validation
+│       ├── __init__.py
+│       ├── content_validator.py
+│       ├── request_validator.py
+│       ├── sanitizer.py
+│       └── schema_validator.py
+├── models
+│   ├── audit
+│   │   ├── audit_base.py
+│   │   ├── audit_log.py
+│   │   └── audit_service.py
+│   ├── auth
+│   │   ├── interfaces.py
+│   │   ├── services
+│   │   │   └── authorization_service.py
+│   │   └── strategies
+│   │       └── jwt_strategy.py
+│   ├── base.py
+│   ├── common
+│   │   ├── enums.py
+│   │   └── value_objects.py
+│   ├── core
+│   │   ├── __init__.py
+│   │   ├── access
+│   │   │   ├── permission.py
+│   │   │   ├── policy.py
+│   │   │   └── role.py
+│   │   ├── admin
+│   │   │   ├── admin.py
+│   │   │   ├── admin_log.py
+│   │   │   ├── admin_permission.py
+│   │   │   ├── admin_settings.py
+│   │   │   ├── staff.py
+│   │   │   └── supervisor.py
+│   │   ├── auth
+│   │   │   ├── __init__.py
+│   │   │   ├── mfa.py
+│   │   │   ├── oauth.py
+│   │   │   ├── permission.py
+│   │   │   ├── role.py
+│   │   │   └── token.py
+│   │   ├── authentication
+│   │   │   ├── credential.py
+│   │   │   ├── session.py
+│   │   │   ├── token.py
+│   │   │   └── two_factor.py
+│   │   ├── base
+│   │   │   ├── auth_base.py
+│   │   │   ├── entity.py
+│   │   │   ├── exceptions.py
+│   │   │   ├── mapper.py
+│   │   │   ├── repository.py
+│   │   │   ├── repository_base.py
+│   │   │   ├── service.py
+│   │   │   ├── user.py
+│   │   │   ├── user_entity.py
+│   │   │   └── user_status.py
+│   │   ├── base_model.py
+│   │   ├── buyer
+│   │   │   ├── __init__.py
+│   │   │   ├── address.py
+│   │   │   ├── buyer.py
+│   │   │   ├── buyer_address.py
+│   │   │   ├── buyer_preference.py
+│   │   │   ├── buyer_profile.py
+│   │   │   ├── buyer_wallet.py
+│   │   │   ├── buyer_wishlist.py
+│   │   │   ├── document.py
+│   │   │   ├── kyc.py
+│   │   │   ├── preference.py
+│   │   │   ├── profile.py
+│   │   │   └── user.py
+│   │   ├── mixins
+│   │   │   ├── __init__.py
+│   │   │   ├── audit_mixin.py
+│   │   │   ├── softdelete_mixin.py
+│   │   │   └── timestamp_mixin.py
+│   │   ├── owner
+│   │   │   ├── owner.py
+│   │   │   ├── owner_permission.py
+│   │   │   └── owner_settings.py
+│   │   ├── repositories
+│   │   │   ├── base_repository.py
+│   │   │   ├── session_repository.py
+│   │   │   ├── token_repository.py
+│   │   │   └── user_repository.py
+│   │   └── seller
+│   │       ├── seller.py
+│   │       ├── seller_balance.py
+│   │       ├── seller_bank.py
+│   │       ├── seller_document.py
+│   │       ├── seller_rating.py
+│   │       ├── seller_status.py
+│   │       └── seller_verification.py
+│   ├── events
+│   │   ├── domain_event.py
+│   │   ├── event.py
+│   │   ├── event_base.py
+│   │   └── event_handler.py
+│   ├── logging
+│   │   ├── __init__.py
+│   │   ├── activity_log.py
+│   │   ├── audit_log.py
+│   │   └── error_log.py
+│   ├── models.md
+│   ├── notification
+│   │   ├── __init__.py
+│   │   ├── email.py
+│   │   ├── notifiable.py
+│   │   ├── notification.py
+│   │   ├── notification_builder.py
+│   │   ├── notification_sender.py
+│   │   ├── push.py
+│   │   ├── sms.py
+│   │   └── template.py
+│   ├── order
+│   │   └── domain
+│   │       ├── order.py
+│   │       └── order_service.py
+│   ├── payment
+│   │   └── domain
+│   │       └── payment.py
+│   ├── ppob
+│   │   ├── __init__.py
+│   │   ├── attribute.py
+│   │   ├── base
+│   │   │   └── product_interface.py
+│   │   ├── bills
+│   │   │   ├── bill_base.py
+│   │   │   ├── bill_factory.py
+│   │   │   ├── bill_interface.py
+│   │   │   ├── bill_service.py
+│   │   │   ├── bpjs.py
+│   │   │   ├── pdam.py
+│   │   │   └── telkom.py
+│   │   ├── category.py
+│   │   ├── config
+│   │   │   ├── base_config.py
+│   │   │   ├── config_manager.py
+│   │   │   ├── environment.py
+│   │   │   └── service_config.py
+│   │   ├── customer.py
+│   │   ├── data
+│   │   │   ├── internet.py
+│   │   │   └── package.py
+│   │   ├── digiflazz.py
+│   │   ├── digital_product.py
+│   │   ├── discount.py
+│   │   ├── game
+│   │   │   ├── exceptions.py
+│   │   │   ├── game_service_base.py
+│   │   │   ├── game_service_factory.py
+│   │   │   ├── game_service_interface.py
+│   │   │   ├── topup.py
+│   │   │   └── voucher.py
+│   │   ├── iak.py
+│   │   ├── image.py
+│   │   ├── notifications
+│   │   │   ├── email_notification.py
+│   │   │   ├── notification_base.py
+│   │   │   ├── notification_interface.py
+│   │   │   ├── notification_service.py
+│   │   │   ├── push_notification.py
+│   │   │   └── sms_notification.py
+│   │   ├── payment
+│   │   │   ├── bank_transfer.py
+│   │   │   ├── ewallet.py
+│   │   │   ├── payment_base.py
+│   │   │   ├── payment_interface.py
+│   │   │   └── payment_service.py
+│   │   ├── physical_product.py
+│   │   ├── pln
+│   │   │   ├── bill.py
+│   │   │   └── token.py
+│   │   ├── price.py
+│   │   ├── product.py
+│   │   ├── provider.py
+│   │   ├── pulsa
+│   │   │   ├── postpaid.py
+│   │   │   └── prepaid.py
+│   │   ├── review.py
+│   │   ├── service_product.py
+│   │   ├── stock.py
+│   │   ├── subscription
+│   │   │   ├── game.py
+│   │   │   └── streaming.py
+│   │   ├── tax.py
+│   │   ├── telco
+│   │   │   ├── entities
+│   │   │   │   ├── bill.py
+│   │   │   │   ├── data_package.py
+│   │   │   │   ├── pulsa.py
+│   │   │   │   └── pulsa_transaction.py
+│   │   │   ├── repositories
+│   │   │   │   └── pulsa_transaction_repository.py
+│   │   │   ├── services
+│   │   │   │   └── pulsa_service.py
+│   │   │   └── value_objects
+│   │   │       ├── package_type.py
+│   │   │       ├── phone_number.py
+│   │   │       ├── provider.py
+│   │   │       └── pulsa_amount.py
+│   │   ├── transaction
+│   │   │   ├── transaction.py
+│   │   │   ├── transaction_analytics.py
+│   │   │   ├── transaction_logger.py
+│   │   │   ├── transaction_repository.py
+│   │   │   └── transaction_service.py
+│   │   ├── transaction.py
+│   │   ├── utility
+│   │   │   ├── electricity.py
+│   │   │   ├── internet.py
+│   │   │   └── water.py
+│   │   ├── variant.py
+│   │   └── voucher
+│   │       ├── base_voucher.py
+│   │       ├── game_voucher.py
+│   │       ├── streaming_voucher.py
+│   │       ├── voucher_interface.py
+│   │       └── voucher_service.py
+│   ├── product
+│   │   └── domain
+│   │       ├── product.py
+│   │       └── value_objects.py
+│   ├── report
+│   │   ├── __init__.py
+│   │   ├── analytics
+│   │   │   ├── sales_stat.py
+│   │   │   └── user_stat.py
+│   │   └── financial
+│   │       ├── profit.py
+│   │       ├── revenue.py
+│   │       └── tax.py
+│   ├── settings
+│   │   ├── __init__.py
+│   │   ├── config.py
+│   │   ├── parameter.py
+│   │   └── system.py
+│   ├── tracking
+│   │   ├── history_tracker.py
+│   │   ├── status_tracker.py
+│   │   └── trackable.py
+│   └── transaction
+│       ├── __init__.py
+│       ├── aggregates
+│       │   └── transaction_aggregate.py
+│       ├── base
+│       │   ├── aggregate.py
+│       │   ├── entity.py
+│       │   └── model.py
+│       ├── cart.py
+│       ├── cart_item.py
+│       ├── entities
+│       │   ├── invoice.py
+│       │   ├── order.py
+│       │   └── receipt.py
+│       ├── history.py
+│       ├── order.py
+│       ├── payment
+│       │   ├── entities
+│       │   │   ├── bank_transfer.py
+│       │   │   ├── ewallet.py
+│       │   │   └── virtual_account.py
+│       │   ├── midtrans.py
+│       │   ├── payable.py
+│       │   ├── payment_calculator.py
+│       │   ├── payment_processor.py
+│       │   ├── payment_validator.py
+│       │   ├── value_objects
+│       │   │   ├── bank_account.py
+│       │   │   ├── payment_code.py
+│       │   │   └── payment_method.py
+│       │   └── xendit.py
+│       ├── payment.py
+│       ├── refund.py
+│       ├── repositories
+│       │   ├── repository.py
+│       │   └── unit_of_work.py
+│       ├── shipping
+│       │   ├── jne.py
+│       │   └── sicepat.py
+│       ├── transactions
+│       │   ├── payment.py
+│       │   ├── refund.py
+│       │   └── transaction.py
+│       ├── value_objects
+│       │   ├── invoice_number.py
+│       │   ├── order_number.py
+│       │   └── transaction_type.py
+│       └── wallet
+│           ├── __init__.py
+│           ├── balance.py
+│           ├── statement.py
+│           ├── transaction.py
+│           ├── transfer.py
+│           ├── value_objects
+│           │   ├── balance.py
+│           │   ├── currency.py
+│           │   └── money.py
+│           ├── wallet.py
+│           └── withdrawal.py
+├── parser.py
+├── routes
+│   ├── __init__.py
+│   ├── base_router.py
+│   ├── v1
+│   │   ├── __init__.py
+│   │   ├── admin
+│   │   │   ├── __init__.py
+│   │   │   ├── dashboard.py
+│   │   │   ├── settings.py
+│   │   │   └── users.py
+│   │   ├── auth
+│   │   │   ├── __init__.py
+│   │   │   ├── login.py
+│   │   │   ├── oauth.py
+│   │   │   ├── register.py
+│   │   │   └── token.py
+│   │   ├── ppob
+│   │   │   ├── __init__.py
+│   │   │   ├── bills
+│   │   │   │   ├── bpjs.py
+│   │   │   │   └── pdam.py
+│   │   │   ├── data
+│   │   │   │   ├── internet.py
+│   │   │   │   └── package.py
+│   │   │   ├── pln
+│   │   │   │   ├── bill.py
+│   │   │   │   └── token.py
+│   │   │   └── pulsa
+│   │   │       ├── postpaid.py
+│   │   │       └── prepaid.py
+│   │   ├── product
+│   │   │   ├── __init__.py
+│   │   │   ├── catalog.py
+│   │   │   ├── category.py
+│   │   │   ├── price.py
+│   │   │   ├── review.py
+│   │   │   └── stock.py
+│   │   ├── transaction
+│   │   │   ├── __init__.py
+│   │   │   ├── history.py
+│   │   │   ├── order.py
+│   │   │   └── payment.py
+│   │   ├── user
+│   │   │   ├── __init__.py
+│   │   │   ├── kyc.py
+│   │   │   ├── preference.py
+│   │   │   └── profile.py
+│   │   └── wallet
+│   │       ├── __init__.py
+│   │       ├── balance.py
+│   │       ├── transfer.py
+│   │       └── withdrawal.py
+│   └── v2
+│       └── __init__.py
+├── schemas
+│   ├── __init__.py
+│   ├── base
+│   │   ├── __init__.py
+│   │   ├── base_schema.py
+│   │   ├── pagination.py
+│   │   └── response.py
+│   ├── enums
+│   │   ├── __init__.py
+│   │   ├── payment.py
+│   │   ├── status.py
+│   │   └── transaction.py
+│   ├── requests
+│   │   ├── __init__.py
+│   │   ├── auth
+│   │   │   ├── __init__.py
+│   │   │   ├── login.py
+│   │   │   ├── password.py
+│   │   │   ├── register.py
+│   │   │   └── token.py
+│   │   ├── ppob
+│   │   │   ├── __init__.py
+│   │   │   ├── bills
+│   │   │   │   ├── bpjs.py
+│   │   │   │   ├── pdam.py
+│   │   │   │   └── pln.py
+│   │   │   ├── data
+│   │   │   │   ├── internet.py
+│   │   │   │   └── package.py
+│   │   │   └── pulsa
+│   │   │       ├── postpaid.py
+│   │   │       └── prepaid.py
+│   │   ├── product
+│   │   │   ├── __init__.py
+│   │   │   ├── category.py
+│   │   │   ├── create.py
+│   │   │   ├── review.py
+│   │   │   └── update.py
+│   │   ├── transaction
+│   │   │   ├── __init__.py
+│   │   │   ├── order.py
+│   │   │   ├── payment.py
+│   │   │   └── refund.py
+│   │   ├── user
+│   │   │   ├── __init__.py
+│   │   │   ├── kyc.py
+│   │   │   ├── preference.py
+│   │   │   └── profile.py
+│   │   └── wallet
+│   │       ├── __init__.py
+│   │       ├── topup.py
+│   │       ├── transfer.py
+│   │       └── withdrawal.py
+│   ├── responses
+│   │   ├── __init__.py
+│   │   ├── auth
+│   │   │   ├── __init__.py
+│   │   │   ├── token.py
+│   │   │   └── user.py
+│   │   ├── ppob
+│   │   │   ├── __init__.py
+│   │   │   ├── inquiry.py
+│   │   │   └── payment.py
+│   │   ├── product
+│   │   │   ├── __init__.py
+│   │   │   ├── category.py
+│   │   │   ├── detail.py
+│   │   │   └── list.py
+│   │   ├── transaction
+│   │   │   ├── __init__.py
+│   │   │   ├── order.py
+│   │   │   └── payment.py
+│   │   ├── user
+│   │   │   ├── __init__.py
+│   │   │   ├── kyc.py
+│   │   │   └── profile.py
+│   │   └── wallet
+│   │       ├── __init__.py
+│   │       ├── balance.py
+│   │       └── history.py
+│   └── validators
+│       ├── __init__.py
+│       ├── custom.py
+│       ├── date.py
+│       ├── number.py
+│       └── string.py
+├── scripts
+│   ├── __init__.py
+│   ├── automation
+│   │   ├── __init__.py
+│   │   ├── ci
+│   │   │   ├── build.sh
+│   │   │   └── deploy.sh
+│   │   ├── cron
+│   │   │   ├── daily_tasks.sh
+│   │   │   └── weekly_tasks.sh
+│   │   └── notifications
+│   │       ├── alert.sh
+│   │       └── report.sh
+│   ├── data
+│   │   ├── __init__.py
+│   │   ├── export
+│   │   │   ├── export_analytics.sh
+│   │   │   └── export_reports.sh
+│   │   ├── import
+│   │   │   ├── import_products.sh
+│   │   │   └── import_users.sh
+│   │   └── sync
+│   │       ├── sync_inventory.sh
+│   │       └── sync_prices.sh
+│   ├── database
+│   │   ├── __init__.py
+│   │   ├── backup
+│   │   │   ├── backup.sh
+│   │   │   └── restore.sh
+│   │   ├── maintenance
+│   │   │   ├── cleanup.sh
+│   │   │   ├── optimize.sh
+│   │   │   └── validate.sh
+│   │   └── migration
+│   │       ├── rollback.sh
+│   │       └── run_migrations.sh
+│   ├── deployment
+│   │   ├── __init__.py
+│   │   ├── cloud
+│   │   │   ├── aws
+│   │   │   │   ├── setup.sh
+│   │   │   │   └── teardown.sh
+│   │   │   └── gcp
+│   │   │       ├── setup.sh
+│   │   │       └── teardown.sh
+│   │   ├── docker
+│   │   │   ├── build.sh
+│   │   │   ├── cleanup.sh
+│   │   │   └── deploy.sh
+│   │   └── kubernetes
+│   │       ├── deploy.sh
+│   │       ├── rollback.sh
+│   │       └── scale.sh
+│   ├── maintenance
+│   │   ├── __init__.py
+│   │   ├── backup
+│   │   │   ├── data_backup.sh
+│   │   │   └── system_backup.sh
+│   │   ├── cleanup
+│   │   │   ├── cache_cleanup.sh
+│   │   │   ├── log_cleanup.sh
+│   │   │   └── temp_cleanup.sh
+│   │   └── monitoring
+│   │       ├── health_check.sh
+│   │       └── performance_check.sh
+│   ├── security
+│   │   ├── __init__.py
+│   │   ├── audit
+│   │   │   ├── security_scan.sh
+│   │   │   └── vulnerability_check.sh
+│   │   ├── certificates
+│   │   │   ├── generate_certs.sh
+│   │   │   └── renew_certs.sh
+│   │   └── compliance
+│   │       └── audit_check.sh
+│   ├── setup
+│   │   ├── __init__.py
+│   │   ├── dependencies
+│   │   │   ├── install_deps.sh
+│   │   │   └── update_deps.sh
+│   │   ├── environment
+│   │   │   ├── dev_setup.sh
+│   │   │   ├── prod_setup.sh
+│   │   │   └── test_setup.sh
+│   │   └── services
+│   │       ├── rabbitmq_setup.sh
+│   │       └── redis_setup.sh
+│   ├── testing
+│   │   ├── __init__.py
+│   │   ├── integration
+│   │   │   └── run_integration.sh
+│   │   ├── load
+│   │   │   ├── performance_test.sh
+│   │   │   └── stress_test.sh
+│   │   └── unit
+│   │       ├── coverage.sh
+│   │       └── run_tests.sh
+│   └── utils
+│       ├── __init__.py
+│       ├── helpers
+│       │   ├── logging.sh
+│       │   └── validation.sh
+│       └── templates
+│           ├── dockerfile.template
+│           └── kubernetes.template
+├── server.py
+├── services
+│   ├── admin
+│   │   ├── dashboard
+│   │   │   ├── metrics_service.py
+│   │   │   └── overview_service.py
+│   │   ├── management
+│   │   │   ├── order_service.py
+│   │   │   ├── product_service.py
+│   │   │   └── user_service.py
+│   │   └── settings
+│   │       ├── config_service.py
+│   │       └── system_service.py
+│   ├── auth
+│   │   ├── authentication
+│   │   │   ├── jwt_service.py
+│   │   │   ├── mfa_service.py
+│   │   │   └── oauth_service.py
+│   │   ├── authorization
+│   │   │   ├── permission_service.py
+│   │   │   └── role_service.py
+│   │   └── security
+│   │       ├── encryption_service.py
+│   │       └── token_service.py
+│   ├── authentication
+│   │   └── services
+│   │       └── auth_service.py
+│   ├── authorization
+│   │   └── services
+│   │       └── auth_service.py
+│   ├── cache
+│   │   ├── local_service.py
+│   │   ├── memcached_service.py
+│   │   └── redis_service.py
+│   ├── core
+│   │   ├── base
+│   │   │   ├── base_service.py
+│   │   │   └── base_validator.py
+│   │   ├── error
+│   │   │   ├── error_service.py
+│   │   │   └── handler_service.py
+│   │   ├── response
+│   │   │   ├── formatter_service.py
+│   │   │   └── response_service.py
+│   │   └── validation
+│   │       ├── sanitizer_service.py
+│   │       └── validator_service.py
+│   ├── logging
+│   │   ├── activity_service.py
+│   │   ├── audit_service.py
+│   │   ├── debug_service.py
+│   │   └── error_service.py
+│   ├── monitoring
+│   │   ├── alert_service.py
+│   │   ├── health_service.py
+│   │   └── metrics_service.py
+│   ├── notification
+│   │   ├── channels
+│   │   │   ├── email_service.py
+│   │   │   ├── push_service.py
+│   │   │   └── sms_service.py
+│   │   ├── scheduler
+│   │   │   ├── queue_service.py
+│   │   │   └── worker_service.py
+│   │   └── templates
+│   │       ├── content_service.py
+│   │       └── template_service.py
+│   ├── product
+│   │   ├── catalog
+│   │   │   ├── category_service.py
+│   │   │   ├── product_service.py
+│   │   │   └── variant_service.py
+│   │   ├── management
+│   │   │   ├── image_service.py
+│   │   │   ├── review_service.py
+│   │   │   └── stock_service.py
+│   │   ├── ppob
+│   │   │   ├── bills
+│   │   │   │   ├── bpjs_service.py
+│   │   │   │   ├── pdam_service.py
+│   │   │   │   └── telkom_service.py
+│   │   │   ├── data
+│   │   │   │   ├── internet_service.py
+│   │   │   │   └── package_service.py
+│   │   │   ├── games
+│   │   │   │   ├── topup_service.py
+│   │   │   │   └── voucher_service.py
+│   │   │   ├── pln
+│   │   │   │   ├── bill_service.py
+│   │   │   │   └── token_service.py
+│   │   │   └── pulsa
+│   │   │       ├── postpaid_service.py
+│   │   │       └── prepaid_service.py
+│   │   └── pricing
+│   │       ├── discount_service.py
+│   │       ├── price_service.py
+│   │       └── tax_service.py
+│   ├── provider
+│   │   ├── payment
+│   │   │   ├── midtrans_service.py
+│   │   │   └── xendit_service.py
+│   │   ├── ppob
+│   │   │   ├── digiflazz_service.py
+│   │   │   └── iak_service.py
+│   │   └── shipping
+│   │       ├── jne_service.py
+│   │       └── sicepat_service.py
+│   ├── queue
+│   │   ├── consumer_service.py
+│   │   ├── producer_service.py
+│   │   └── scheduler_service.py
+│   ├── report
+│   │   ├── analytics
+│   │   │   ├── product_service.py
+│   │   │   └── user_service.py
+│   │   ├── financial
+│   │   │   ├── profit_service.py
+│   │   │   ├── revenue_service.py
+│   │   │   └── tax_service.py
+│   │   └── transaction
+│   │       ├── sales_service.py
+│   │       └── settlement_service.py
+│   ├── transaction
+│   │   ├── history
+│   │   │   ├── export_service.py
+│   │   │   └── history_service.py
+│   │   ├── order
+│   │   │   ├── cart_service.py
+│   │   │   └── order_service.py
+│   │   └── payment
+│   │       ├── gateway_service.py
+│   │       ├── payment_service.py
+│   │       └── refund_service.py
+│   ├── user
+│   │   ├── account
+│   │   │   ├── preference_service.py
+│   │   │   ├── profile_service.py
+│   │   │   └── user_service.py
+│   │   ├── roles
+│   │   │   ├── admin_service.py
+│   │   │   ├── customer_service.py
+│   │   │   └── seller_service.py
+│   │   └── verification
+│   │       ├── document_service.py
+│   │       └── kyc_service.py
+│   ├── utils
+│   │   ├── constant_service.py
+│   │   ├── format_service.py
+│   │   └── helper_service.py
+│   └── wallet
+│       ├── balance
+│       │   ├── balance_service.py
+│       │   └── limit_service.py
+│       ├── history
+│       │   ├── mutation_service.py
+│       │   └── statement_service.py
+│       └── transaction
+│           ├── transfer_service.py
+│           └── withdrawal_service.py
+├── struktur.txt
+├── struktur_folder.txt
+├── tasks
+│   ├── __init__.py
+│   ├── base
+│   │   ├── __init__.py
+│   │   ├── base_task.py
+│   │   └── task_registry.py
+│   ├── cache
+│   │   ├── __init__.py
+│   │   ├── invalidation
+│   │   │   ├── price_cache.py
+│   │   │   └── product_cache.py
+│   │   └── warmup
+│   │       ├── catalog_warmup.py
+│   │       └── config_warmup.py
+│   ├── maintenance
+│   │   ├── __init__.py
+│   │   ├── backup
+│   │   │   ├── db_backup.py
+│   │   │   └── file_backup.py
+│   │   ├── cleanup
+│   │   │   ├── log_cleanup.py
+│   │   │   ├── session_cleanup.py
+│   │   │   └── temp_cleanup.py
+│   │   └── monitoring
+│   │       ├── error_monitor.py
+│   │       └── health_check.py
+│   ├── notification
+│   │   ├── __init__.py
+│   │   ├── email
+│   │   │   ├── __init__.py
+│   │   │   ├── auth_email.py
+│   │   │   ├── marketing_email.py
+│   │   │   └── transaction_email.py
+│   │   ├── push
+│   │   │   ├── __init__.py
+│   │   │   ├── promo_push.py
+│   │   │   └── transaction_push.py
+│   │   └── sms
+│   │       ├── __init__.py
+│   │       ├── alert_sms.py
+│   │       └── otp_sms.py
+│   ├── order
+│   │   ├── __init__.py
+│   │   ├── inventory
+│   │   │   ├── low_stock_alert.py
+│   │   │   └── stock_update.py
+│   │   ├── processor
+│   │   │   ├── cancel_processor.py
+│   │   │   └── order_processor.py
+│   │   └── shipping
+│   │       ├── shipping_label.py
+│   │       └── tracking_update.py
+│   ├── payment
+│   │   ├── __init__.py
+│   │   ├── processor
+│   │   │   ├── payment_processor.py
+│   │   │   └── refund_processor.py
+│   │   ├── reconciliation
+│   │   │   ├── daily_reconcile.py
+│   │   │   └── settlement_process.py
+│   │   └── verification
+│   │       ├── fraud_check.py
+│   │       └── payment_verify.py
+│   ├── ppob
+│   │   ├── __init__.py
+│   │   ├── inquiry
+│   │   │   ├── balance_inquiry.py
+│   │   │   └── bill_inquiry.py
+│   │   ├── maintenance
+│   │   │   ├── price_update.py
+│   │   │   └── product_sync.py
+│   │   └── transaction
+│   │       ├── process_transaction.py
+│   │       └── status_checker.py
+│   ├── queues
+│   │   ├── __init__.py
+│   │   ├── dead_letter.py
+│   │   ├── priority_queues.py
+│   │   └── retry_policy.py
+│   ├── reporting
+│   │   ├── __init__.py
+│   │   ├── analytics
+│   │   │   ├── sales_analytics.py
+│   │   │   └── user_analytics.py
+│   │   ├── audit
+│   │   │   ├── system_audit.py
+│   │   │   └── transaction_audit.py
+│   │   └── financial
+│   │       ├── daily_report.py
+│   │       ├── monthly_report.py
+│   │       └── tax_report.py
+│   └── schedulers
+│       ├── __init__.py
+│       ├── daily_scheduler.py
+│       ├── monthly_scheduler.py
+│       └── weekly_scheduler.py
+├── utils
+│   ├── __init__.py
+│   ├── cache
+│   │   ├── __init__.py
+│   │   ├── memory_cache.py
+│   │   └── redis_helper.py
+│   ├── constants
+│   │   ├── __init__.py
+│   │   ├── app_constants.py
+│   │   ├── error_codes.py
+│   │   ├── message_codes.py
+│   │   └── status_codes.py
+│   ├── decorators
+│   │   ├── __init__.py
+│   │   ├── auth
+│   │   │   ├── __init__.py
+│   │   │   ├── jwt_required.py
+│   │   │   ├── permission_required.py
+│   │   │   └── role_required.py
+│   │   ├── cache
+│   │   │   ├── __init__.py
+│   │   │   ├── cache_invalidate.py
+│   │   │   └── cache_response.py
+│   │   ├── logging
+│   │   │   ├── __init__.py
+│   │   │   ├── log_execution.py
+│   │   │   └── track_performance.py
+│   │   └── validation
+│   │       ├── __init__.py
+│   │       ├── validate_input.py
+│   │       └── validate_output.py
+│   ├── formatters
+│   │   ├── __init__.py
+│   │   ├── date
+│   │   │   ├── human.py
+│   │   │   └── iso.py
+│   │   ├── number
+│   │   │   ├── currency.py
+│   │   │   └── decimal.py
+│   │   └── response
+│   │       ├── __init__.py
+│   │       ├── error.py
+│   │       └── success.py
+│   ├── generators
+│   │   ├── __init__.py
+│   │   ├── id_generator.py
+│   │   ├── password_generator.py
+│   │   └── token_generator.py
+│   ├── helpers
+│   │   ├── __init__.py
+│   │   ├── date
+│   │   │   ├── __init__.py
+│   │   │   ├── calculator.py
+│   │   │   ├── converter.py
+│   │   │   └── formatter.py
+│   │   ├── file
+│   │   │   ├── __init__.py
+│   │   │   ├── processor.py
+│   │   │   ├── uploader.py
+│   │   │   └── validator.py
+│   │   ├── number
+│   │   │   ├── __init__.py
+│   │   │   ├── calculator.py
+│   │   │   ├── converter.py
+│   │   │   └── formatter.py
+│   │   ├── security
+│   │   │   ├── __init__.py
+│   │   │   ├── encryption.py
+│   │   │   ├── hashing.py
+│   │   │   └── token.py
+│   │   └── string
+│   │       ├── __init__.py
+│   │       ├── formatter.py
+│   │       ├── sanitizer.py
+│   │       └── validator.py
+│   ├── http
+│   │   ├── __init__.py
+│   │   ├── client.py
+│   │   ├── request.py
+│   │   └── response.py
+│   ├── logger
+│   │   ├── __init__.py
+│   │   ├── access_logger.py
+│   │   ├── error_logger.py
+│   │   └── performance_logger.py
+│   ├── security
+│   │   ├── __init__.py
+│   │   ├── encryption.py
+│   │   ├── jwt_handler.py
+│   │   └── password_handler.py
+│   └── validators
+│       ├── __init__.py
+│       ├── auth
+│       │   ├── password.py
+│       │   └── token.py
+│       ├── transaction
+│       │   ├── order.py
+│       │   └── payment.py
+│       └── user
+│           ├── kyc.py
+│           └── profile.py
+└── validator.py
+
+397 directories, 1084 files
