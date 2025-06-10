@@ -1,7 +1,8 @@
 from datetime import datetime
 from typing import Optional
+from .timestamp_mixin import TimestampMixin
 
-class AuditMixin:
+class AuditMixin(TimestampMixin):
     """Mixin for audit functionality."""
     
     def __init__(self, *args, **kwargs):
@@ -40,3 +41,14 @@ class AuditMixin:
         """Set who deleted this entity."""
         self._deleted_by = user_id
         self._deleted_at = datetime.utcnow()
+        
+    def get_audit_info(self) -> dict:
+        """Get audit information as dictionary."""
+        return {
+            'created_by': self.created_by,
+            'updated_by': self.updated_by,
+            'deleted_by': self.deleted_by,
+            'created_at': self.created_at.isoformat() if self.created_at else None,
+            'updated_at': self.updated_at.isoformat() if self.updated_at else None,
+            'deleted_at': self.deleted_at.isoformat() if self.deleted_at else None
+        }
