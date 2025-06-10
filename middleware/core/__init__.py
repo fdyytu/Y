@@ -1,7 +1,13 @@
 """
-Core interfaces untuk middleware components.
+Core middleware components.
 """
-from .middleware_interface import (
+from .abstract import (
+    BaseMiddleware,
+    BaseHandler,
+    BaseValidator,
+    ValidationResult
+)
+from .interfaces import (
     MiddlewareInterface,
     AuthenticationInterface,
     AuthorizationInterface,
@@ -9,9 +15,7 @@ from .middleware_interface import (
     RateLimitInterface,
     LoggingInterface,
     MonitoringInterface,
-    SecurityInterface
-)
-from .handler_interface import (
+    SecurityInterface,
     HandlerInterface,
     ErrorHandlerInterface,
     RequestHandlerInterface,
@@ -20,11 +24,8 @@ from .handler_interface import (
     ValidationHandlerInterface,
     CacheHandlerInterface,
     SecurityHandlerInterface,
-    MonitoringHandlerInterface
-)
-from .validator_interface import (
+    MonitoringHandlerInterface,
     ValidatorInterface,
-    ValidationResult,
     InputValidatorInterface,
     SchemaValidatorInterface,
     AuthValidatorInterface,
@@ -34,8 +35,23 @@ from .validator_interface import (
     FileValidatorInterface,
     APIValidatorInterface
 )
+from .registry import (
+    MiddlewareRegistry,
+    middleware_registry,
+    DependencyContainer,
+    ServiceProvider,
+    ConfigurationProvider,
+    LoggingProvider,
+    dependency_container
+)
 
 __all__ = [
+    # Abstract Classes
+    'BaseMiddleware',
+    'BaseHandler',
+    'BaseValidator',
+    'ValidationResult',
+    
     # Middleware Interfaces
     'MiddlewareInterface',
     'AuthenticationInterface',
@@ -59,7 +75,6 @@ __all__ = [
     
     # Validator Interfaces
     'ValidatorInterface',
-    'ValidationResult',
     'InputValidatorInterface',
     'SchemaValidatorInterface',
     'AuthValidatorInterface',
@@ -67,5 +82,14 @@ __all__ = [
     'BusinessValidatorInterface',
     'DataValidatorInterface',
     'FileValidatorInterface',
-    'APIValidatorInterface'
+    'APIValidatorInterface',
+    
+    # Registry
+    'MiddlewareRegistry',
+    'middleware_registry',
+    'DependencyContainer',
+    'ServiceProvider',
+    'ConfigurationProvider',
+    'LoggingProvider',
+    'dependency_container'
 ]
