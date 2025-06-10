@@ -26,8 +26,10 @@ class Email:
             raise ValueError("Invalid email format")
             
     def _is_valid_email(self, email: str) -> bool:
-        # Implement email validation
-        pass
+        """Validasi format email sederhana."""
+        import re
+        pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        return re.match(pattern, email) is not None
 
 @dataclass(frozen=True)
 class PhoneNumber:
@@ -40,5 +42,32 @@ class PhoneNumber:
             raise ValueError("Invalid phone number format")
             
     def _is_valid_phone(self, number: str) -> bool:
-        # Implement phone validation
-        pass
+        """Validasi format nomor telepon Indonesia."""
+        import re
+        # Format: 08xxxxxxxxxx atau 8xxxxxxxxxx
+        pattern = r'^0?8[0-9]{8,11}$'
+        return re.match(pattern, number) is not None
+    
+    @property
+    def formatted(self) -> str:
+        """Format nomor dengan country code."""
+        clean_number = self.value.lstrip('0')
+        return f"+{self.country_code}{clean_number}"
+
+@dataclass(frozen=True)
+class Address:
+    """Value object untuk alamat."""
+    street: str
+    city: str
+    province: str
+    postal_code: str
+    country: str = "Indonesia"
+    
+    def __post_init__(self):
+        if not all([self.street, self.city, self.province, self.postal_code]):
+            raise ValueError("Semua field alamat harus diisi")
+    
+    @property
+    def full_address(self) -> str:
+        """Alamat lengkap dalam satu string."""
+        return f"{self.street}, {self.city}, {self.province} {self.postal_code}, {self.country}"

@@ -1,11 +1,11 @@
 from datetime import datetime
 from typing import List, Optional
 from uuid import UUID
+from models.base import AggregateRoot
 from models.common.value_objects import Money
-from models.common.base_entity import AggregateRoot
 from .order_item import OrderItem
-from .order_status import OrderStatus
-from .exceptions import InvalidOrderState
+from ..value_objects.order_status import OrderStatus
+from ..exceptions import InvalidOrderState
 
 class Order(AggregateRoot):
     """Order aggregate root."""

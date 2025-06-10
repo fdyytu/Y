@@ -48,21 +48,26 @@ Jika model butuh akses/koneksi database atau migrasi, biasanya perlu import dari
 ```python
 # models/transaction/entities/invoice.py
 
-from models/base import BaseModel
-from models/core/mixins/audit_mixin import AuditMixin
-from models/transaction/value_objects.invoice_number import InvoiceNumber
-from models/common/enums import StatusEnum
-from models/transaction/entities.order import Order
-from config/database.connection import get_db_session  # Jika butuh akses DB
+from models.base import Entity
+from models.core.mixins import AuditMixin
+from models.transaction.value_objects.invoice_number import InvoiceNumber
+from models.common.enums import StatusEnum
+from models.order.entities.order import Order
+from config.database.connection import get_db_session  # Jika butuh akses DB
 
-class Invoice(BaseModel, AuditMixin):
-    def __init__(self, invoice_number: InvoiceNumber, order: Order, status: StatusEnum):
+class Invoice(Entity, AuditMixin):
+    """Invoice entity untuk transaksi."""
+    
+    def __init__(self, invoice_number: InvoiceNumber, order: Order, status: StatusEnum = StatusEnum.PENDING):
+        super().__init__()
         self.invoice_number = invoice_number
         self.order = order
         self.status = status
 
     def save(self):
+        """Simpan invoice ke database."""
         session = get_db_session()
+        # Implementation untuk menyimpan ke database
         session.add(self)
         session.commit()
 ```

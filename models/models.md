@@ -1,94 +1,170 @@
-# Models Directory
+# Dokumentasi Struktur Models
 
-Direktori `models/` ini berisi seluruh struktur model, interface, dan value object untuk aplikasi marketplace dan layanan digital, dengan arsitektur yang terinspirasi Domain-Driven Design (DDD). Struktur ini memungkinkan skalabilitas, maintainabilitas, serta pemisahan domain yang jelas.
+Dokumentasi ini menjelaskan struktur dan organisasi models dalam aplikasi.
 
----
+## Struktur Umum
 
+```
+models/
+├── base.py                     # Base classes (Entity, AggregateRoot)
+├── common/                     # Common models dan value objects
+│   ├── __init__.py
+│   ├── enums.py               # Enums umum (Status, RoleType, dll)
+│   └── value_objects.py       # Value objects umum (Money, Email, dll)
+├── core/                      # Core functionality
+│   ├── __init__.py
+│   ├── base_model.py          # Deprecated, gunakan models/base.py
+│   └── mixins/                # Mixins untuk functionality tambahan
+│       ├── __init__.py
+│       ├── audit_mixin.py     # Audit trail functionality
+│       ├── timestamp_mixin.py # Timestamp functionality
+│       └── softdelete_mixin.py # Soft delete functionality
+└── [domain]/                  # Domain-specific models
+    ├── __init__.py
+    ├── entities/              # Domain entities
+    ├── value_objects/         # Domain value objects
+    ├── repositories/          # Repository interfaces
+    └── exceptions.py          # Domain exceptions
+```
 
+## Base Classes
 
-### Penjelasan Tiap Folder
+### Entity
+Base class untuk semua domain entities. Menyediakan:
+- Unique identifier (UUID)
+- Equality comparison berdasarkan ID
+- Hash function untuk collections
 
-#### 1. **abstracts/**
-Berisi abstraksi dasar dan perilaku umum:
-- **base/**: Model, entity, dan aggregate root dasar.
-- **products/**: Abstraksi produk (produk digital, fisik, jasa).
-- **transactions/**: Abstraksi transaksi, pembayaran, dan refund.
+### AggregateRoot
+Extends Entity, digunakan untuk aggregate roots dalam DDD pattern. Menyediakan:
+- Domain events management
+- Semua functionality dari Entity
 
-#### 2. **interfaces/**
-Berisi interface (abstract base class) untuk kontrak perilaku:
-- **payment/**: Interface pembayaran, validasi, kalkulasi.
-- **tracking/**: Interface tracking status dan riwayat.
-- **notification/**: Interface notifikasi dan pengirimannya.
+### BaseModel (Deprecated)
+Alias untuk Entity, disediakan untuk backward compatibility.
 
-#### 3. **users/**
-Struktur model user berdasarkan peran:
-- **base/**: Entity & status user umum.
-- **owner/**, **admin/**, **seller/**, **buyer/**: Model, permission, settings, dan atribut spesifik tiap peran.
+## Mixins
 
-#### 4. **core/**
-Fitur fundamental aplikasi:
-- **authentication/**: Kredensial, session, token, 2FA.
-- **access/**: Role, permission, policy.
-- **wallet/**: Entity & value object terkait dompet.
+### TimestampMixin
+Menambahkan timestamp functionality:
+- `created_at`: Waktu entity dibuat
+- `updated_at`: Waktu terakhir diupdate
+- `update_timestamp()`: Method untuk update timestamp
 
-#### 5. **ppob/**
-Domain PPOB (Payment Point Online Bank):
-- **payment/**: Bank transfer, e-wallet, virtual account.
-- **telco/**: Pulsa, paket data, tagihan telekomunikasi.
-- **utility/**: Listrik (PLN), air (PDAM), internet.
+### AuditMixin
+Extends TimestampMixin, menambahkan audit trail:
+- `created_by`: User yang membuat
+- `updated_by`: User yang mengupdate
+- `deleted_by`: User yang menghapus (soft delete)
+- `deleted_at`: Waktu dihapus
+- `is_deleted`: Flag soft delete
 
-#### 6. **digital/**
-Produk digital:
-- **voucher/**: Voucher game & streaming.
-- **subscription/**: Langganan streaming & game.
+### SoftDeleteMixin
+Standalone soft delete functionality:
+- `deleted_at`: Waktu dihapus
+- `deleted_by`: User yang menghapus
+- `is_deleted`: Flag soft delete
+- `soft_delete()`: Method untuk soft delete
+- `restore()`: Method untuk restore
 
-#### 7. **transaction/**
-Transaksi dan dokumen terkait:
-- **entities/**: Order, invoice, receipt.
-- **value_objects/**: Value object untuk nomor order/invoice, jenis transaksi.
-- **aggregates/**: Aggregate root transaksi.
+## Common Models
 
----
+### Enums
+- `Status`: Status umum (ACTIVE, INACTIVE, PENDING, dll)
+- `StatusEnum`: Alias untuk Status (backward compatibility)
+- `RoleType`: Tipe role user (ADMIN, OWNER, SELLER, BUYER)
+- `PaymentStatus`: Status pembayaran
+- `TransactionType`: Tipe transaksi
+
+### Value Objects
+- `Money`: Monetary amounts dengan currency
+- `Email`: Email addresses dengan validasi
+- `PhoneNumber`: Phone numbers dengan validasi
+- `Address`: Alamat lengkap
+
+## Domain Structure
+
+Setiap domain harus mengikuti struktur standar:
+
+### entities/
+Berisi domain entities yang merupakan core business objects.
+
+### value_objects/
+Berisi value objects yang spesifik untuk domain tersebut.
+
+### repositories/
+Berisi repository interfaces untuk data access.
+
+### exceptions.py
+Berisi custom exceptions untuk domain tersebut.
 
 ## Contoh Penggunaan
 
-Setiap file pada folder ini berisi class Python dengan struktur dan docstring yang jelas, siap untuk di-extend atau diintegrasikan ke dalam service/bisnis logic aplikasi Anda.
-
-Contoh menginisialisasi produk digital:
+### Membuat Entity Sederhana
 ```python
-from models.abstracts.products.digital_product import DigitalProduct
+from models.base import Entity
+from models.core.mixins import TimestampMixin
 
-product = DigitalProduct(name="Ebook Premium", price=50000, download_url="https://...")
+class Product(Entity, TimestampMixin):
+    def __init__(self, name: str, price: Money):
+        super().__init__()
+        self.name = name
+        self.price = price
 ```
 
-Contoh interface:
+### Membuat Aggregate Root
 ```python
-from models.interfaces.payment.payable import Payable
+from models.base import AggregateRoot
+from models.core.mixins import AuditMixin
 
-class MyInvoice(Payable):
-    def get_amount(self):
-        return 150000
+class Order(AggregateRoot, AuditMixin):
+    def __init__(self, buyer_id: UUID, items: List[OrderItem]):
+        super().__init__()
+        self.buyer_id = buyer_id
+        self.items = items
+        self.status = OrderStatus.CREATED
 ```
 
----
+### Menggunakan Value Objects
+```python
+from models.common import Money, Email
 
-## Standar & Best Practice
+# Membuat money object
+price = Money(Decimal("100000"), "IDR")
 
-- **Domain-Driven Design (DDD):** Pemisahan domain, aggregate root, entity, value objects, dan event (bisa ditambahkan jika dibutuhkan).
-- **Interface Segregation:** Gunakan interface agar mudah extend dan testable.
-- **Scalable Structure:** Mudah dikembangkan untuk domain/fitur baru.
+# Membuat email object
+email = Email("user@example.com")
+```
 
----
+## Best Practices
 
-## Kontribusi
+1. **Gunakan Entity untuk domain objects dengan identity**
+2. **Gunakan AggregateRoot untuk aggregate roots**
+3. **Gunakan Value Objects untuk data tanpa identity**
+4. **Gunakan Mixins untuk cross-cutting concerns**
+5. **Ikuti struktur domain yang konsisten**
+6. **Buat custom exceptions untuk setiap domain**
+7. **Gunakan repository pattern untuk data access**
 
-1. **Ikuti struktur folder dan penamaan.**
-2. **Tambahkan docstring dan type hint pada setiap class/method.**
-3. **Pisahkan logic domain dengan infrastructure/framework.**
-4. **Tambahkan unit test untuk setiap komponen baru.**
+## Migration dari Struktur Lama
 
----
+Jika ada model yang masih menggunakan struktur lama:
 
-## Lisensi
+1. Update import dari `models/core/base_model.py` ke `models/base.py`
+2. Update import mixins dari individual files ke `models/core/mixins`
+3. Pindahkan file dari `domain/` ke struktur `entities/`, `value_objects/`, `repositories/`
+4. Update import paths sesuai struktur baru
 
-MIT License
+## Dependency Management
+
+### Internal Dependencies
+- Base classes: `models/base.py`
+- Mixins: `models/core/mixins/`
+- Common models: `models/common/`
+- Domain models: `models/[domain]/`
+
+### External Dependencies
+- Database: `config/database/connection.py`
+- Migrations: `config/database/migrations.py`
+
+Dengan mengikuti struktur ini, models akan lebih terorganisir, mudah dimaintain, dan mengikuti best practices dalam domain-driven design.
