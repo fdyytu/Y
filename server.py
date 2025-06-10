@@ -2,20 +2,27 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from uvicorn.config import Config
-import asyncio
 import datetime
 import os
 import logging
+import sys
 from setup import setup_project_structure
 from watcher import watch_directory, WATCHED_DIRECTORIES
 from reloader import AutoReloader
 
-# Konfigurasi logging
+# Konfigurasi logging yang lebih lengkap
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(sys.stdout),  # Output ke console
+        logging.FileHandler('server.log')   # Output ke file
+    ]
 )
-logger = logging.getLogger(__name__)
+
+# Buat logger khusus untuk server
+logger = logging.getLogger('server')
+logger.setLevel(logging.INFO)
 
 # Inisialisasi FastAPI
 app = FastAPI()
@@ -29,11 +36,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-async def start_file_watcher(reloader):
-    """Menjalankan file watcher"""
-    async for changes in watch_directory(WATCHED_DIRECTORIES):
-        if reloader.should_reload():
-            reloader.reload_app()
+@app.on_event("startup")
+async def startup_event():
+    """Log saat server mulai"""
+    logger.info("Server mulai berjalan")
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    """Log saat server berhenti"""
+    logger.info("Server berhenti")
 
 if __name__ == "__main__":
     # Setup struktur project
@@ -42,41 +53,89 @@ if __name__ == "__main__":
         exit(1)
     
     # Informasi startup
-    current_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%SS")
+    current_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
     current_user = os.getenv("USER", "fdyytu")
     
-    print(f"\n=== Server Status ===")
-    print(f"📅 Waktu Start (UTC): {current_time}")
-    print(f"👤 User: {current_user}")
-    print("\n🔍 Monitoring Direktori:")
-    for dir_path in WATCHED_DIRECTORIES:
-        print(f"   └── {dir_path}")
+    startup_message = f"""
+=== Server Status ===
+📅 Waktu Start (UTC): {current_time}
+👤 User: {current_user}
+
+🔍 Monitoring Direktori:
+{chr(10).join(f'   └── {dir_path}' for dir_path in WATCHED_DIRECTORIES)}
+
+🚀 Server mulai dengan konfigurasi:
+├── FastAPI: API utama dan endpoints
+├── Django: Admin panel dan reporting
+└── Flask: Payment gateway dan webhooks
+"""
     
-    print("\n🚀 Server mulai dengan konfigurasi:")
-    print("├── FastAPI: API utama dan endpoints")
-    print("├── Django: Admin panel dan reporting")
-    print("└── Flask: Payment gateway dan webhooks")
+    # Log informasi startup
+    logger.info(startup_message)
+    print(startup_message)  # Tampilkan juga di console
     
-    # Konfigurasi uvicorn
-    config = Config(
-        "server:app",
-        host="0.0.0.0",
-        port=8000,
-        reload=True,
-        reload_dirs=WATCHED_DIRECTORIES,
-        log_level="info"
-    )
-    
-    # Inisialisasi AutoReloader
-    reloader = AutoReloader(app)
-    server = uvicorn.Server(config)
-    
-    # Jalankan server dan file watcher
-    async def run_server():
-        await asyncio.gather(
-            server.serve(),
-            start_file_watcher(reloader)
+    try:
+        # Konfigurasi uvicorn dengan logging
+        uvicorn_config = Config(
+            "server:app",
+            host="0.0.0.0",
+            port=8000,
+            reload=True,
+            reload_dirs=WATCHED_DIRECTORIES,
+            log_level="info",
+            log_config={
+                "version": 1,
+                "disable_existing_loggers": False,
+                "formatters": {
+                    "default": {
+                        "()": "uvicorn.logging.DefaultFormatter",
+                        "fmt": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+                        "use_colors": True,
+                    },
+                },
+                "handlers": {
+                    "default": {
+                        "formatter": "default",
+                        "class": "logging.StreamHandler",
+                        "stream": "ext://sys.stdout",
+                    },
+                },
+                "loggers": {
+                    "server": {"handlers": ["default"], "level": "INFO"},
+                }
+            }
         )
-    
-    # Jalankan dengan asyncio
-    asyncio.run(run_server())
+        
+        # Inisialisasi AutoReloader
+        reloader = AutoReloader(app)
+        logger.info("AutoReloader diinisialisasi")
+        
+        # Setup dan jalankan file watcher
+        watcher = Watcher(WATCHED_DIRECTORIES, reloader.reload_app)
+        logger.info("File Watcher diinisialisasi")
+        
+        # Jalankan watcher di thread terpisah
+        import threading
+        watcher_thread = threading.Thread(target=watcher.start)
+        watcher_thread.daemon = True
+        watcher_thread.start()
+        logger.info("File Watcher thread dimulai")
+        
+        # Log sebelum server mulai
+        logger.info("Memulai server Uvicorn...")
+        
+        # Jalankan server
+        uvicorn.run(
+            app,
+            host="0.0.0.0",
+            port=8000,
+            log_level="info",
+            reload=True,
+            reload_dirs=WATCHED_DIRECTORIES
+        )
+        
+    except Exception as e:
+        logger.error(f"Error saat menjalankan server: {str(e)}")
+    except KeyboardInterrupt:
+        logger.info("Server dihentikan oleh user")
+        watcher.stop()
