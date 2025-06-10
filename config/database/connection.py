@@ -58,3 +58,8 @@ class DatabaseConnection:
         finally:
             self._connection_count -= 1
             conn.close()
+
+def get_db_session():
+    """Get database session for model operations"""
+    db = DatabaseConnection()
+    return db.get_connection()
