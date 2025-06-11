@@ -4,7 +4,6 @@ Menyediakan berbagai strategi autentikasi dan middleware terkait.
 """
 
 # Core authentication middleware
-from .auth_middleware import AuthMiddleware
 from .middleware.auth_middleware import AuthenticationMiddleware
 
 # Authentication strategies
@@ -19,9 +18,11 @@ from .providers.facebook_provider import FacebookProvider
 from .providers.apple_provider import AppleProvider
 
 # Authentication services
+from .services.auth_service import AuthService
 from .services.token_service import TokenService
 from .services.session_service import SessionService
 from .services.refresh_service import RefreshService
+from .services.user_service import UserService
 
 # Specific auth middleware
 from .auth.jwt_middleware import JWTMiddleware
@@ -33,7 +34,6 @@ __version__ = "1.0.0"
 
 __all__ = [
     # Core
-    'AuthMiddleware',
     'AuthenticationMiddleware',
     
     # Interfaces & Strategies
@@ -50,9 +50,11 @@ __all__ = [
     'AppleProvider',
     
     # Services
+    'AuthService',
     'TokenService',
     'SessionService',
     'RefreshService',
+    'UserService',
     
     # Specific Middleware
     'JWTMiddleware',
@@ -80,6 +82,28 @@ def get_available_providers():
     }
 
 
+def get_available_services():
+    """Mendapatkan daftar service yang tersedia."""
+    return {
+        'auth': AuthService,
+        'token': TokenService,
+        'session': SessionService,
+        'refresh': RefreshService,
+        'user': UserService,
+    }
+
+
+def get_available_middleware():
+    """Mendapatkan daftar middleware yang tersedia."""
+    return {
+        'auth': AuthenticationMiddleware,
+        'jwt': JWTMiddleware,
+        'api_key': APIKeyMiddleware,
+        'oauth': OAuthMiddleware,
+        'role': RoleMiddleware,
+    }
+
+
 def create_auth_middleware(strategy_type='jwt', **kwargs):
     """
     Factory function untuk membuat authentication middleware.
@@ -98,4 +122,118 @@ def create_auth_middleware(strategy_type='jwt', **kwargs):
                         f"Pilihan: {list(strategies.keys())}")
     
     strategy = strategies[strategy_type](**kwargs)
-    return AuthMiddleware(strategy=strategy)
+    return AuthenticationMiddleware(strategy=strategy)
+
+
+def create_auth_service(config=None):
+    """
+    Factory function untuk membuat authentication service.
+    
+    Args:
+        config: Configuration dictionary
+        
+    Returns:
+        Instance dari AuthService
+    """
+    return AuthService(config)
+
+
+def create_provider(provider_type, config):
+    """
+    Factory function untuk membuat OAuth provider.
+    
+    Args:
+        provider_type: Tipe provider ('google', 'facebook', 'apple')
+        config: Provider configuration
+        
+    Returns:
+        Instance dari provider
+        
+    Raises:
+        ValueError: Jika provider_type tidak didukung
+    """
+    providers = get_available_providers()
+    
+    if provider_type not in providers:
+        raise ValueError(f"Provider '{provider_type}' tidak tersedia. "
+                        f"Pilihan: {list(providers.keys())}")
+    
+    return providers[provider_type](config)
+
+
+def create_strategy(strategy_type, config=None):
+    """
+    Factory function untuk membuat authentication strategy.
+    
+    Args:
+        strategy_type: Tipe strategy ('jwt', 'api_key', 'oauth2')
+        config: Strategy configuration
+        
+    Returns:
+        Instance dari strategy
+        
+    Raises:
+        ValueError: Jika strategy_type tidak didukung
+    """
+    strategies = get_available_strategies()
+    
+    if strategy_type not in strategies:
+        raise ValueError(f"Strategy '{strategy_type}' tidak tersedia. "
+                        f"Pilihan: {list(strategies.keys())}")
+    
+    if config:
+        return strategies[strategy_type](config)
+    else:
+        return strategies[strategy_type]()
+
+
+def create_service(service_type, config=None):
+    """
+    Factory function untuk membuat service.
+    
+    Args:
+        service_type: Tipe service ('auth', 'token', 'session', 'refresh', 'user')
+        config: Service configuration
+        
+    Returns:
+        Instance dari service
+        
+    Raises:
+        ValueError: Jika service_type tidak didukung
+    """
+    services = get_available_services()
+    
+    if service_type not in services:
+        raise ValueError(f"Service '{service_type}' tidak tersedia. "
+                        f"Pilihan: {list(services.keys())}")
+    
+    return services[service_type](config)
+
+
+def get_package_info():
+    """Mendapatkan informasi lengkap tentang package."""
+    return {
+        'name': 'Authentication Middleware',
+        'version': __version__,
+        'description': 'Comprehensive authentication middleware package',
+        'strategies': list(get_available_strategies().keys()),
+        'providers': list(get_available_providers().keys()),
+        'services': list(get_available_services().keys()),
+        'middleware': list(get_available_middleware().keys()),
+        'features': [
+            'JWT Authentication',
+            'API Key Authentication', 
+            'OAuth 2.0 Support',
+            'Role-based Access Control',
+            'Session Management',
+            'Token Management',
+            'Multi-provider OAuth',
+            'Refresh Token Rotation',
+            'Rate Limiting',
+            'Security Middleware'
+        ]
+    }
+
+
+# Convenience imports untuk backward compatibility
+AuthMiddleware = AuthenticationMiddleware
